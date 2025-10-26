@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Get FRT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+    }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0.15;
+    }
+    .background img {
+      width: 49%;
+      height: auto;
+      object-fit: contain;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: transparent;
+    }
+    .logo {
+      height: 40px;
+      margin-right: 1rem;
+    }
+    .headline {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    nav {
+      padding: 1rem 2rem;
+      background: transparent;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav li {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    nav a {
+      color: #222;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .gif-container {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .gif-container img {
+      max-width: 100%;
+      height: auto;
+    }
+    .coming-soon {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 2rem;
+    }
+    footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+  #ferret {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    transition: transform 0.2s linear;
+  }
+</style>
+
+  </style>
+</head>
+<body>
+  <img id="ferret" src="Images/SleepingFerret.png" />
+
+  <div class="background">
+    <img src="Images/MoneyFerretLeft.png" alt="Angelic Ferret Left" />
+    <img src="Images/MoneyFerretRight.png" alt="Angelic Ferret Right" />
+  </div>
+
+  <header>
+    <img src="Images/MoneyLogo.png" alt="Ferret Logo" class="logo" />
+    <div class="headline">How to Get FRT</div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="Buttons&PatchesPage.html">⬅️ Meet the Ferrets! 🐾</a></li>
+      <li><a href="StashPage.html">⬅️ How to Get FRT? 🐾</a></li>
+      <li><a href="FerretFaxPage.html">⬅️ Ferret Fax 🐾</a></li>
+       <li><a href="index.html">⬅️ Back to The Den 🐾</a></li>
+      <li><a href="https://www.instagram.com/ferret_coin">🐾 Follow the Ferrets on Instagram 🐾</a></li>
+    </ul>
+  </nav>
+
+  <div class="gif-container">
+    <img src="images/DancingFerret.webp" alt="Jumping Ferret" loading="lazy" width="128" height="128">
+
+  </div>
+
+  <div class="coming-soon">
+    📈 Instructions coming soon! Follow the Instagram to stay updated 🐾
+  </div>
+
+  <footer>
+    First 100 Followers get 1000 Ferret Coins! 🐾
+  </footer>
+  <script>
+  const ferret = document.getElementById("ferret");
+  const stillImage = "Images/SleepingFerret.png";
+  const runningGif = "Images/RunningFerret.gif";
+
+  let posX = window.innerWidth - 100;
+  let posY = window.innerHeight - 100;
+  let state = "still";
+  let returnTimer = null;
+
+  ferret.style.left = posX + "px";
+  ferret.style.top = posY + "px";
+
+  function distance(x1, y1, x2, y2) {
+    return Math.hypot(x2 - x1, y2 - y1);
+  }
+
+  function stayInBounds(x, y) {
+    const padding = 40;
+    x = Math.max(padding, Math.min(window.innerWidth - padding - ferret.offsetWidth, x));
+    y = Math.max(padding, Math.min(window.innerHeight - padding - ferret.offsetHeight, y));
+    return { x, y };
+  }
+
+  function moveFerret(mouseX, mouseY) {
+    const dx = posX - mouseX;
+    const dy = posY - mouseY;
+    const dist = Math.max(distance(posX, posY, mouseX, mouseY), 1);
+    const speed = 12;
+
+    let vx = (dx / dist) * speed;
+    let vy = (dy / dist) * speed;
+
+    const edgeMargin = 50;
+    if (posX < edgeMargin) vx += speed;
+    if (posX > window.innerWidth - edgeMargin - ferret.offsetWidth) vx -= speed;
+    if (posY < edgeMargin) vy += speed;
+    if (posY > window.innerHeight - edgeMargin - ferret.offsetHeight) vy -= speed;
+
+    posX += vx;
+    posY += vy;
+
+    const bounded = stayInBounds(posX, posY);
+    posX = bounded.x;
+    posY = bounded.y;
+
+    // Face away from mouse
+    const facingMouse = posX < mouseX;
+    ferret.style.transform = facingMouse ? 'scaleX(-1)' : 'scaleX(1)';
+
+    ferret.style.left = posX + "px";
+    ferret.style.top = posY + "px";
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    const d = distance(e.clientX, e.clientY, posX, posY);
+    if (d < 150) {
+      if (state !== "running") {
+        ferret.src = runningGif;
+        state = "running";
+      }
+      moveFerret(e.clientX, e.clientY);
+      if (returnTimer) {
+        clearTimeout(returnTimer);
+        returnTimer = null;
+      }
+    } else if (state === "running" && !returnTimer) {
+      returnTimer = setTimeout(() => {
+        ferret.src = stillImage;
+        posX = window.innerWidth - 100;
+        posY = window.innerHeight - 100;
+        ferret.style.left = posX + "px";
+        ferret.style.top = posY + "px";
+        state = "still";
+      }, 2000);
+    }
+  });
+</script>
+
+</body>
+</html>

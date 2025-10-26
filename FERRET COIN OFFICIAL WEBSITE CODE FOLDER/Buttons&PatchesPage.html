@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet The Ferrets!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0.15;
+    }
+
+    .background img {
+      width: 49%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: transparent;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 1rem;
+    }
+
+    .headline {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    nav {
+      padding: 1rem 2rem;
+      background: transparent;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav li {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    nav a {
+      color: #222;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+
+    .section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .ferret-info {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .video-container {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      max-width: 720px;
+      height: 405px;
+      border: none;
+      border-radius: 12px;
+    }
+
+    footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+  #ferret {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    transition: transform 0.2s linear;
+  }
+</style>
+
+  </style>
+</head>
+<body>
+  <img id="ferret" src="Images/SleepingFerret.png" />
+
+  <div class="background">
+    <img src="Images/PunkFerretLeft.png" alt="Angelic Ferret Left" />
+    <img src="Images/PunkFerretRight.png" alt="Angelic Ferret Right" />
+  </div>
+
+  <header>
+    <img src="Images/Logo.png" alt="Ferret Logo" class="logo" />
+    <div class="headline">Ferrets Are The Future</div>
+  </header>
+ <nav>
+    <ul>
+      <li><a href="Buttons&PatchesPage.html">⬅️ Meet the Ferrets! 🐾</a></li>
+      <li><a href="StashPage.html">⬅️ How to Get FRT? 🐾</a></li>
+      <li><a href="FerretFaxPage.html">⬅️ Ferret Fax 🐾</a></li>
+      <li><a href="index.html">⬅️ Back to The Den 🐾</a></li>
+  <div class="section ferret-info">
+   
+    <h2>Meet Buttons & Patches</h2>
+
+    <h3>🩷 Buttons</h3>
+    <p>
+      Buttons is a gentle soul, a fluffy little philosopher with a heart full of kindness. She’s the soft pause between chaos and clarity—the heartbeat of the revolution.
+    </p>
+
+    <h3>🔥 Patches</h3>
+    <p>
+      Patches is wild and scrappy, the fearless rebel of the crew. She chews wires, breaks expectations, and leads every charge with messy love and relentless joy.
+    </p>
+  </div>
+
+  <div class="section video-container">
+    <h2>Watch Them in Action</h2>
+    <iframe 
+      src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+      title="Buttons and Patches Ferret Video"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <footer>
+    Donation fund coming soon.
+  </footer>
+  <script>
+  const ferret = document.getElementById("ferret");
+  const stillImage = "Images/SleepingFerret.png";
+  const runningGif = "Images/RunningFerret.gif";
+
+  let posX = window.innerWidth - 100;
+  let posY = window.innerHeight - 100;
+  let state = "still";
+  let returnTimer = null;
+
+  ferret.style.left = posX + "px";
+  ferret.style.top = posY + "px";
+
+  function distance(x1, y1, x2, y2) {
+    return Math.hypot(x2 - x1, y2 - y1);
+  }
+
+  function stayInBounds(x, y) {
+    const padding = 40;
+    x = Math.max(padding, Math.min(window.innerWidth - padding - ferret.offsetWidth, x));
+    y = Math.max(padding, Math.min(window.innerHeight - padding - ferret.offsetHeight, y));
+    return { x, y };
+  }
+
+  function moveFerret(mouseX, mouseY) {
+    const dx = posX - mouseX;
+    const dy = posY - mouseY;
+    const dist = Math.max(distance(posX, posY, mouseX, mouseY), 1);
+    const speed = 12;
+
+    let vx = (dx / dist) * speed;
+    let vy = (dy / dist) * speed;
+
+    const edgeMargin = 50;
+    if (posX < edgeMargin) vx += speed;
+    if (posX > window.innerWidth - edgeMargin - ferret.offsetWidth) vx -= speed;
+    if (posY < edgeMargin) vy += speed;
+    if (posY > window.innerHeight - edgeMargin - ferret.offsetHeight) vy -= speed;
+
+    posX += vx;
+    posY += vy;
+
+    const bounded = stayInBounds(posX, posY);
+    posX = bounded.x;
+    posY = bounded.y;
+
+    // Face away from mouse
+    const facingMouse = posX < mouseX;
+    ferret.style.transform = facingMouse ? 'scaleX(-1)' : 'scaleX(1)';
+
+    ferret.style.left = posX + "px";
+    ferret.style.top = posY + "px";
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    const d = distance(e.clientX, e.clientY, posX, posY);
+    if (d < 150) {
+      if (state !== "running") {
+        ferret.src = runningGif;
+        state = "running";
+      }
+      moveFerret(e.clientX, e.clientY);
+      if (returnTimer) {
+        clearTimeout(returnTimer);
+        returnTimer = null;
+      }
+    } else if (state === "running" && !returnTimer) {
+      returnTimer = setTimeout(() => {
+        ferret.src = stillImage;
+        posX = window.innerWidth - 100;
+        posY = window.innerHeight - 100;
+        ferret.style.left = posX + "px";
+        ferret.style.top = posY + "px";
+        state = "still";
+      }, 2000);
+    }
+  });
+</script>
+
+</body>
+</html>
