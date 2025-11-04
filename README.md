@@ -18,7 +18,7 @@ Ferret Coin is a meme-powered Ethereum token designed to honor chaos, cuteness, 
 - Max Supply: 1,000,000 FRT
 - No presale, no promises.
 - Early holders = early ferrets.
-- No dev wallet, just ferret love.
+
 
 ## 📢 Manifesto
 > A Ferret is Never Alone.<br>
@@ -41,7 +41,7 @@ Ferret Coin is a meme-powered Ethereum token designed to honor chaos, cuteness, 
 
 ## 🧷 How to Get FRT
 
-Initial community distribution is happening on Instagram and Telegram.  
+Initial community distribution is happening on Instagram.  
 Liquidity will launch once there are 1,000 followers and 1,000 ferrets in the wild. 🧼
 
 ---
